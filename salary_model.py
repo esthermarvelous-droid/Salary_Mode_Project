@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 #Load cleaned data
 df = pd.read_csv("cleaned_dataset.csv")
 
-#Features and target
+#Define features and target
 X = df[["Age", "MonthlyHoursWorked"]]
 y = df["MonthlySalary"]
 
@@ -29,13 +29,17 @@ r2 = r2_score(y_test, predictions)
 print("Mean Squared Error:", mse)
 print ("R2 Score:", r2)
 
-print (df.columns)
+#Try Random Forest Model
 
-#Department&EducationalLevel are text columns(machine do not understand- so convert into numbers)
-#Remove ID column
-df = df.drop("EmployeeID", axis=1)
+from sklearn.ensemble import RandomForestRegressor
 
-#Convert categorical columns to numbers
-df = pd.get_dummies(df, columns=["Department", "EducationalLevel"], drop_first=True)
+rf_model = RandomForestRegressor(random_state=42)
+rf_model.fit(X_train, y_train)
 
-print(df.head())
+rf_predictions = rf_model.predict(X_test)
+
+rf_mse = mean_squared_error(y_test, rf_predictions)
+rf_r2 = r2_score(y_test, rf_predictions)
+
+print("Random Forest MSE:", rf_mse)
+print("random Forest R2:", rf_r2)
