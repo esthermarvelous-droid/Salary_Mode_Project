@@ -43,3 +43,18 @@ rf_r2 = r2_score(y_test, rf_predictions)
 
 print("Random Forest MSE:", rf_mse)
 print("random Forest R2:", rf_r2)
+
+from sklearn.tree import DecisionTreeRegressor
+
+# Try Decision Tree Model
+
+dt_model = DecisionTreeRegressor(random_state=42)
+dt_model.fit(X_train, y_train)
+
+dt_predictions = dt_model.predict(X_test)
+
+dt_mse = mean_squared_error(y_test, dt_predictions)
+dt_r2 = r2_score(y_test, dt_predictions)
+
+print("Decision Tree MSE:", dt_mse)
+print("Decision Tree R2:", dt_r2)
